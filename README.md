@@ -1,4 +1,4 @@
-# Avent of Code
+# Advent of Code
 
 Personal repository of [Advent of Code][aoc] solutions.
 
