@@ -17,14 +17,9 @@ def concat_fields(entries: list) -> list:
             eyr:2028 iyr:2016 byr:1995 ecl:oth pid:543685203 hcl:#c0946f hgt:152cm cid:252
     """
 
-    line = ""
-    ret = list()
-    for entry in entries:
-        if entry == "\n":
-            ret.append(line.strip())
-            line = ""
-        else:
-            line += entry.rstrip() + " "
+    ret = []
+    for line in entries:
+        ret.append(str_to_dict(line.replace("\n", " ")))
 
     return ret
 
@@ -97,7 +92,7 @@ def is_valid(f: dict) -> bool:
 
 # read input file
 with open(sys.argv[1], 'r') as fd:
-    input_content = fd.readlines()
+    input_content = fd.read().split("\n\n")
 
 # init
 part1 = 0
@@ -106,12 +101,11 @@ part2 = 0
 
 # part1
 for entry in concat_fields(input_content):
-    dict_entry = str_to_dict(entry)
-    size_entry = len(dict_entry)
+    size_entry = len(entry)
 
-    if size_entry == 8 or (size_entry == 7 and 'cid' not in dict_entry):
+    if size_entry == 8 or (size_entry == 7 and 'cid' not in entry):
         part1 += 1
-        part1_list.append(dict_entry)
+        part1_list.append(entry)
 
 # part2
 for entry in part1_list:
