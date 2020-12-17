@@ -57,8 +57,8 @@ like data from North Pole Credentials, not a passport at all! Surely, nobody
 would mind if you made the system temporarily ignore missing `cid` fields. Treat
 this "passport" as valid.
 
-The fourth passport is missing two fields, `cid` and `byr`. Missing `cid` is fine, but
-missing any other field is not, so this passport is invalid.
+The fourth passport is missing two fields, `cid` and `byr`. Missing `cid` is
+fine, but missing any other field is not, so this passport is invalid.
 
 According to the above rules, your improved system would report 2 valid
 passports.
@@ -80,7 +80,7 @@ about what values are valid for automatic validation:
 - `eyr` (Expiration Year) - four digits; at least `2020` and at most `2030`.
 - `hgt` (Height) - a number followed by either `cm` or `in`:
   - If `cm`, the number must be at least `150` and at most `193`.
-  - If `in`, the number must be at least `59 `and at most `76`.
+  - If `in`, the number must be at least `59` and at most `76`.
 - `hcl` (Hair Color) - a `#` followed by exactly six characters `0-9` or `a-f`.
 - `ecl` (Eye Color) - exactly one of: `amb` `blu` `brn` `gry` `grn` `hzl` `oth`.
 - `pid` (Passport ID) - a nine-digit number, including leading zeroes.
