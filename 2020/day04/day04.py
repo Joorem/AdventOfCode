@@ -4,45 +4,29 @@ import re
 import sys
 
 
-def concat_fields(entries: list) -> list:
+def str_to_dict(input_list: list) -> list:
     """
-    reformat input file with all information of each passport on one line
+    Analyze a list of strings and return a list of dict with all found fields
     example:
         from:
-            eyr:2028 iyr:2016 byr:1995 ecl:oth
-            pid:543685203 hcl:#c0946f
-            hgt:152cm
-            cid:252
+            ['eyr:2028 iyr:2016 byr:1995 ecl:oth pid:543685203 hcl:#c0946f hgt:152cm cid:252']
         to:
-            eyr:2028 iyr:2016 byr:1995 ecl:oth pid:543685203 hcl:#c0946f hgt:152cm cid:252
-    """
-
-    ret = []
-    for line in entries:
-        ret.append(str_to_dict(line.replace("\n", " ")))
-
-    return ret
-
-
-def str_to_dict(entry: str) -> dict:
-    """
-    Analyze a string and return a dict with all found fields
-    example:
-        from:
-            eyr:2028 iyr:2016 byr:1995 ecl:oth pid:543685203 hcl:#c0946f hgt:152cm cid:252
-        to:
-            {'byr': '1995', 'iyr': '2016', 'eyr': '2028', 'hgt': '152cm', 'hcl': '#c0946f', 'ecl': 'oth', 'pid': '543685203', 'cid': '252'}
-
+            [{'byr': '1995', 'iyr': '2016', 'eyr': '2028', 'hgt': '152cm', 'hcl': '#c0946f', 'ecl': 'oth', 'pid': '543685203', 'cid': '252'}]
     """
 
     fields = ('byr', 'iyr', 'eyr', 'hgt', 'hcl', 'ecl', 'pid', 'cid')
-    ret = dict()
-    for field in fields:
-        search = re.search(rf"{field}:([a-z0-9#]+)", entry)
-        if search:
-            ret[field] = search.group(1)
+    list_of_dict = list()
 
-    return ret
+    for info in input_list:
+        tmp_dict = dict()
+        for field in fields:
+            search = re.search(rf"{field}:([a-z0-9#]+)", info)
+            if search:
+                tmp_dict[field] = search.group(1)
+        if len(tmp_dict) >= 7:
+            list_of_dict.append(tmp_dict)
+
+    return list_of_dict
 
 
 def is_valid(f: dict) -> bool:
@@ -100,10 +84,10 @@ part1_list = list()
 part2 = 0
 
 # part1
-for entry in concat_fields(input_content):
+for entry in str_to_dict(input_content):
     size_entry = len(entry)
 
-    if size_entry == 8 or (size_entry == 7 and 'cid' not in entry):
+    if size_entry == 8 or 'cid' not in entry:
         part1 += 1
         part1_list.append(entry)
 
