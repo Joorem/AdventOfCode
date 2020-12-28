@@ -38,7 +38,7 @@ for index in range(PREAMBLE, len(xmas_data) - 1):
 i = 0
 while part2 == 0 and i < len(xmas_data) - 1:
     j = len(xmas_data) - 1
-    while i < j:
+    while i + 1 < j:  # work on at least 2 values
         if sum(xmas_data[i:j]) == part1:
             part2 = min(xmas_data[i:j]) + max(xmas_data[i:j])
             break
