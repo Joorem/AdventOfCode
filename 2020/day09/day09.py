@@ -37,12 +37,12 @@ for index in range(PREAMBLE, len(xmas_data) - 1):
 # part2
 i = 0
 while part2 == 0 and i < len(xmas_data) - 1:
-    j = i + 1
-    while i < j < len(xmas_data):
+    j = len(xmas_data) - 1
+    while i < j:
         if sum(xmas_data[i:j]) == part1:
             part2 = min(xmas_data[i:j]) + max(xmas_data[i:j])
             break
-        j += 1
+        j -= 1
     i += 1
 
 # done
